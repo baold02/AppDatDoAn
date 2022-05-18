@@ -1,6 +1,10 @@
-package com.huongdancode.nhom6_app.model;
+package com.huongdancode.nhom6_app.Model;
 
-public class Product {
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Product implements Serializable {
     private String id;
     private String name;
     private String image;
@@ -16,21 +20,8 @@ public class Product {
     private int so_luong_da_ban;
     private String trang_thai;
 
-    public Product(String id, String name, String image, String bao_quan, String thong_tin_bao_quan, String mota, String loai_sp, int thoiGianCheBien, int gia_ban, float khuyen_mai, int rate, String khau_phan, int so_luong_da_ban, String trang_thai) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
-        this.bao_quan = bao_quan;
-        this.thong_tin_bao_quan = thong_tin_bao_quan;
-        this.mota = mota;
-        this.loai_sp = loai_sp;
-        this.thoiGianCheBien = thoiGianCheBien;
-        this.gia_ban = gia_ban;
-        this.khuyen_mai = khuyen_mai;
-        this.rate = rate;
-        this.khau_phan = khau_phan;
-        this.so_luong_da_ban = so_luong_da_ban;
-        this.trang_thai = trang_thai;
+
+    public Product() {
     }
 
     public String getId() {
@@ -143,5 +134,23 @@ public class Product {
 
     public void setTrang_thai(String trang_thai) {
         this.trang_thai = trang_thai;
+    }
+
+    public Map<String, Object> toMapSPDB() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("so_luong_da_ban", so_luong_da_ban);
+        return  map;
+    }
+
+    public Map<String, Object> toMapTrangThaiSP() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("trang_thai", trang_thai);
+        return  map;
+    }
+
+    public Map<String, Object> toMapRate() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("rate", rate);
+        return map;
     }
 }

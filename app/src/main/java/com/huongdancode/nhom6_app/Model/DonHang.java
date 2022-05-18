@@ -1,8 +1,11 @@
-package com.huongdancode.nhom6_app.model;
+package com.huongdancode.nhom6_app.Model;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class DonHang {
+public class DonHang implements Serializable {
     private String id;
     private int tong_tien;
     private String user_id;
@@ -19,6 +22,22 @@ public class DonHang {
     private long thoiGianGiaoHangDuKien;
 
     public DonHang() {
+    }
+
+    public String getThong_tin_huy_don() {
+        return thong_tin_huy_don;
+    }
+
+    public void setThong_tin_huy_don(String thong_tin_huy_don) {
+        this.thong_tin_huy_don = thong_tin_huy_don;
+    }
+
+    public long getThoiGianGiaoHangDuKien() {
+        return thoiGianGiaoHangDuKien;
+    }
+
+    public void setThoiGianGiaoHangDuKien(long thoiGianGiaoHangDuKien) {
+        this.thoiGianGiaoHangDuKien = thoiGianGiaoHangDuKien;
     }
 
     public String getId() {
@@ -117,19 +136,10 @@ public class DonHang {
         this.sdt = sdt;
     }
 
-    public String getThong_tin_huy_don() {
-        return thong_tin_huy_don;
-    }
-
-    public void setThong_tin_huy_don(String thong_tin_huy_don) {
-        this.thong_tin_huy_don = thong_tin_huy_don;
-    }
-
-    public long getThoiGianGiaoHangDuKien() {
-        return thoiGianGiaoHangDuKien;
-    }
-
-    public void setThoiGianGiaoHangDuKien(long thoiGianGiaoHangDuKien) {
-        this.thoiGianGiaoHangDuKien = thoiGianGiaoHangDuKien;
+    public Map<String, Object> toMapHuyDon() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("trang_thai", trang_thai);
+        map.put("thong_tin_huy_don", thong_tin_huy_don);
+        return map;
     }
 }

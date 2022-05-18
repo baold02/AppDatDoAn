@@ -1,10 +1,18 @@
-package com.huongdancode.nhom6_app.model;
+package com.huongdancode.nhom6_app.Model;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoaiSP {
+
     private String id;
     private String name;
     private String hinhanh;
     private int soSanPhamThuocLoai;
+
+    public LoaiSP() {
+    }
+
 
     public LoaiSP(String id, String name, String hinhanh, int soSanPhamThuocLoai) {
         this.id = id;
@@ -13,12 +21,12 @@ public class LoaiSP {
         this.soSanPhamThuocLoai = soSanPhamThuocLoai;
     }
 
-    public String getId() {
-        return id;
+    public int getSoSanPhamThuocLoai() {
+        return soSanPhamThuocLoai;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSoSanPhamThuocLoai(int soSanPhamThuocLoai) {
+        this.soSanPhamThuocLoai = soSanPhamThuocLoai;
     }
 
     public String getName() {
@@ -37,11 +45,19 @@ public class LoaiSP {
         this.hinhanh = hinhanh;
     }
 
-    public int getSoSanPhamThuocLoai() {
-        return soSanPhamThuocLoai;
+    public String getId() {
+        return id;
     }
 
-    public void setSoSanPhamThuocLoai(int soSanPhamThuocLoai) {
-        this.soSanPhamThuocLoai = soSanPhamThuocLoai;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("id", id);
+        map.put("name", name);
+        map.put("hinhanh", hinhanh);
+        return map;
     }
 }

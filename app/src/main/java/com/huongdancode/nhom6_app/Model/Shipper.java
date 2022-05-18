@@ -1,4 +1,4 @@
-package com.huongdancode.nhom6_app.model;
+package com.huongdancode.nhom6_app.Model;
 
 public class Shipper {
     private String id;
@@ -6,19 +6,13 @@ public class Shipper {
     private String name;
     private String phone_number;
 
-    public Shipper(String id, String hinh_anh, String name, String phone_number) {
+    public Shipper(String id, String name, String phone_number) {
         this.id = id;
-        this.hinh_anh = hinh_anh;
         this.name = name;
         this.phone_number = phone_number;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public Shipper() {
     }
 
     public String getHinh_anh() {
@@ -27,6 +21,14 @@ public class Shipper {
 
     public void setHinh_anh(String hinh_anh) {
         this.hinh_anh = hinh_anh;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

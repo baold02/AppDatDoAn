@@ -1,12 +1,16 @@
-package com.huongdancode.nhom6_app.model;
+package com.huongdancode.nhom6_app.Model;
 
 public class DonHangChiTiet {
     private Product product;
     private int so_luong;
 
-    public DonHangChiTiet(Product product, int so_luong) {
+    public DonHangChiTiet(Product product,  int so_luong) {
         this.product = product;
         this.so_luong = so_luong;
+    }
+
+
+    public DonHangChiTiet() {
     }
 
     public Product getProduct() {
