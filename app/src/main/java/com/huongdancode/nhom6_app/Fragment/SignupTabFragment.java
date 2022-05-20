@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -18,22 +19,30 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.huongdancode.nhom6_app.HomeActivity;
 import com.huongdancode.nhom6_app.LoginActivity;
 import com.huongdancode.nhom6_app.R;
+
+import java.util.concurrent.Executor;
 
 
 public class SignupTabFragment extends Fragment {
 
-    private EditText edtSoDienThoai;
+    private static final String TAG = "EmailPassword";
+    private Context context;
     private EditText edtTenDangNhap;
     private EditText edtMatKhau;
     private EditText edtNhapLaiMatKhau;
-    private ToggleButton btnCheckPass2;
-    private ToggleButton btnCheckPass;
     private Button btnHuyDangKi;
-    private Button btnDangKy;
+    private Button btnDangKi;
 
     private LoginActivity loginActivity;
+    private  LoginTabFragment fragment;
 
     // biến môi trường kết nối của Auth của Firebase
     //private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -54,33 +63,24 @@ public class SignupTabFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView(view);
+          initView(view);
 //        setUpEdtSoDienThoai();
 //        setUpBtnCheckPass(btnCheckPass, edtMatKhau);
 //        setUpBtnCheckPass(btnCheckPass2, edtNhapLaiMatKhau);
-//        setUpBtnCancel();
+          setUpBtnCancel();
+        setDangKi();
     }
 
     private void initView(View view) {
-        edtSoDienThoai = view.findViewById(R.id.edtSoDienThoai);
-        edtTenDangNhap = view.findViewById(R.id.edtTenDangNhap);
-        edtMatKhau = view.findViewById(R.id.edtMatKhau);
-        edtNhapLaiMatKhau = view.findViewById(R.id.edtNhapLaiMatKhau);
-        btnCheckPass2 = view.findViewById(R.id.btnCheckPass2);
+
+        edtTenDangNhap = view.findViewById(R.id.edtEmail);
+        edtMatKhau = view.findViewById(R.id.edtpass);
         btnHuyDangKi = view.findViewById(R.id.btnHuyDangKi);
-        btnDangKy = view.findViewById(R.id.btnDangKy);
-        btnCheckPass = view.findViewById(R.id.btnCheckPass);
+        btnDangKi = view.findViewById(R.id.btnDangKi);
+
     }
 
-    private void setUpEdtSoDienThoai() {
-        edtSoDienThoai.setOnFocusChangeListener((v, hasFocus) -> {
-            if(hasFocus) {
-                edtSoDienThoai.setHint("");
-            } else {
-                edtSoDienThoai.setHint("Nhập số điện thoại");
-            }
-        });
-    }
+
 
     private void setUpBtnCheckPass(ToggleButton btnCheckPass, EditText edtMatKhau) {
         btnCheckPass.setOnClickListener(v -> {
@@ -99,15 +99,57 @@ public class SignupTabFragment extends Fragment {
         btnHuyDangKi.setOnClickListener(v -> {
             edtTenDangNhap.setText("");
             edtMatKhau.setText("");
-            edtNhapLaiMatKhau.setText("");
-            edtSoDienThoai.setText("");
+
+            ;
         });
+    }
+
+    private void  setDangKi(){
+        btnDangKi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DangKy();
+            }
+        });
+    }
+
+    private void DangKy(){
+        String Email = edtTenDangNhap.getText().toString().trim();
+        String password = edtMatKhau.getText().toString().trim();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(Email, password)
+                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Intent intent = new Intent(getContext(), HomeActivity.class);
+                            startActivity(intent);
+
+
+
+
+
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(getContext(),"That bai",Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+
+                });
+
     }
 
 
 
+
     private void goToLoginFragment() {
-        edtSoDienThoai.setText("");
+
         edtMatKhau.setText("");
         edtNhapLaiMatKhau.setText("");
         edtTenDangNhap.setText("");
