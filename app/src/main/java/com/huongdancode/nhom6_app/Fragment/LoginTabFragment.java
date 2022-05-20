@@ -27,7 +27,7 @@ public class LoginTabFragment extends Fragment {
 
     private EditText edtTenDangNhap, edtMatKhau;
     private TextView tvQuenMatKhau;
-    private Button btnDangNhap, btnHuyDangNhap;
+    private Button btnDangNhap,btnHuyDangNhap;
     private ToggleButton btnCheckPass;
 
     @Override
@@ -43,8 +43,6 @@ public class LoginTabFragment extends Fragment {
 
         // cài đặt các animation cho các view
         setUpViewAnimation();
-
-
         setUpBtnCancel();
     }
 
