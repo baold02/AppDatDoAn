@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("them database");
 
+
         myRef.setValue("cach thu cong");
 
     }
