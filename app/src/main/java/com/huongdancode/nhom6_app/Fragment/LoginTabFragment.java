@@ -1,6 +1,7 @@
 package com.huongdancode.nhom6_app.Fragment;
 
 
+import static com.huongdancode.nhom6_app.SplashActivity.userLogin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,10 +17,18 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.database.DatabaseError;
+import com.huongdancode.nhom6_app.Dao.UserDao;
+import com.huongdancode.nhom6_app.HomeActivity;
+import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
+import com.huongdancode.nhom6_app.LocalDatabase.LocalUserDatabase;
+import com.huongdancode.nhom6_app.Model.User;
 import com.huongdancode.nhom6_app.R;
+import com.huongdancode.nhom6_app.Utils.LoginViewModel;
+import com.huongdancode.nhom6_app.Utils.OverUtils;
 
 
 
@@ -27,7 +36,7 @@ public class LoginTabFragment extends Fragment {
 
     private EditText edtTenDangNhap, edtMatKhau;
     private TextView tvQuenMatKhau;
-    private Button btnDangNhap,btnHuyDangNhap;
+    private Button btnDangNhap, btnHuyDangNhap;
     private ToggleButton btnCheckPass;
 
     @Override
@@ -40,9 +49,13 @@ public class LoginTabFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        setUpSignupData();
 
         // cài đặt các animation cho các view
         setUpViewAnimation();
+
+        setUpBtnCheckPass();
+        setUpBtnLogin();
         setUpBtnCancel();
     }
 
@@ -55,7 +68,15 @@ public class LoginTabFragment extends Fragment {
         btnHuyDangNhap = view.findViewById(R.id.btnHuyDangNhap);
     }
 
-
+    private void setUpSignupData() {
+        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
+        loginViewModel.getData().observe(getViewLifecycleOwner(), user -> {
+            if(user != null) {
+                edtTenDangNhap.setText(user.getUsername());
+                edtMatKhau.setText(user.getPassword());
+            }
+        });
+    }
 
     private void setUpViewAnimation() {
         // cài đặt vị trí đứng của các view
@@ -96,7 +117,41 @@ public class LoginTabFragment extends Fragment {
         });
     }
 
+    private void setUpBtnLogin() {
+        btnDangNhap.setOnClickListener(v -> {
+            String userName = edtTenDangNhap.getText().toString().trim();
+            String password = edtMatKhau.getText().toString().trim();
+            if (validateInput(userName, password)) {
+                    UserDao.getInstance().getUserByUserName(userName, new IAfterGetAllObject() {
+                    @Override
+                    public void iAfterGetAllObject(Object obj) {
+                        if (obj == null) {
+                            OverUtils.makeToast(getContext(), "Tài khoản không tồn tại");
+                            return;
+                        }
 
+                        User user = (User) obj;
+                        if (user.getPassword().equals(password)) {
+                            storageAccount(user);
+                            userLogin = user;
+                            SharedPreferences.Editor editor = OverUtils.getSPInstance(getContext(), OverUtils.PASS_FILE).edit();
+                            editor.putString("pass", OverUtils.PASS_LOGIN_ACTIVITY);
+                            editor.apply();
+                            goToHomeActivity();
+                        } else {
+                            OverUtils.makeToast(getContext(), "Vui lòng kiểm tra lại mật khẩu");
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(DatabaseError error) {
+                        OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
+                    }
+                });
+            }
+        });
+    }
 
     private void setUpBtnCancel() {
         btnHuyDangNhap.setOnClickListener(v -> {
@@ -105,5 +160,21 @@ public class LoginTabFragment extends Fragment {
         });
     }
 
+    private boolean validateInput(String userName, String password) {
+        if (userName.isEmpty() || password.isEmpty()) {
+            OverUtils.makeToast(getContext(), "Quý khánh vui lòng nhập đầy đủ thông tin");
+            return false;
+        }
+        return true;
+    }
 
+    private void storageAccount(User user) {
+        LocalUserDatabase.getInstance(getContext()).getUserDao().insert(user);
+    }
+
+    private void goToHomeActivity() {
+        Intent intent = new Intent(getContext(), HomeActivity.class);
+        startActivity(intent);
+        requireActivity().finish();
+    }
 }

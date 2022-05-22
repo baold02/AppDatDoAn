@@ -2,16 +2,28 @@ package com.huongdancode.nhom6_app;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.huongdancode.nhom6_app.Adater.LoginAdapter;
+import com.huongdancode.nhom6_app.Utils.OverUtils;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,14 +31,14 @@ public class LoginActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ImageView fb, google, twitter;
 
-//    private final ActivityResultLauncher<String> requestPermissionLauncher =
-//            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-//                if (isGranted) {
-//                    callPhone();
-//                } else {
-//                    OverUtils.makeToast(LoginActivity.this, "Không có quyền gọi điện");
-//                }
-//            });
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    callPhone();
+                } else {
+                    OverUtils.makeToast(LoginActivity.this, "Không có quyền gọi điện");
+                }
+            });
 
     public TabLayout getTabLayout() {
         return tabLayout;
@@ -81,6 +93,28 @@ public class LoginActivity extends AppCompatActivity {
         google.animate().translationY(0).alpha(1).setDuration(2000).setStartDelay(600).start();
         twitter.animate().translationY(0).alpha(1).setDuration(2000).setStartDelay(800).start();
         tabLayout.animate().translationY(0).alpha(1).setDuration(2000).setStartDelay(100).start();
+    }
+    private void triggerCallPhone() {
+        Intent intent = getIntent();
+        if (intent != null && intent.getAction() != null) {
+            if (intent.getAction().equals("CALL_PHONE")) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                        callPhone();
+                    } else {
+                        requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE);
+                    }
+                } else {
+                    callPhone();
+                }
+            }
+        }
+    }
+    private void callPhone() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:1900 1000"));
+        startActivity(intent);
     }
 
 }
