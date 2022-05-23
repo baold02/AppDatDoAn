@@ -2,9 +2,13 @@ package com.huongdancode.nhom6_app.Dao;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
 import com.huongdancode.nhom6_app.Interface.IAfterInsertObject;
 import com.huongdancode.nhom6_app.Model.User;
@@ -80,5 +84,20 @@ public class UserDao {
                 Log.e("TAG", task.getException().toString() + "");
             }
         });
+    }
+    public void getUserByUserNameListener(String username, IAfterGetAllObject iAfterGetAllObject) {
+        FirebaseDatabase.getInstance().getReference().child("user").child(username)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        iAfterGetAllObject.iAfterGetAllObject(user);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        iAfterGetAllObject.onError(error);
+                    }
+                });
     }
 }
