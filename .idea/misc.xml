@@ -3,14 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/activity_avatar.xml" value="0.17708333333333334" />
+        <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/activity_chi_tiet_don_hang.xml" value="0.17708333333333334" />
         <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/activity_home.xml" value="0.16077898550724637" />
         <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/activity_login.xml" value="0.14628623188405798" />
         <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/activity_main.xml" value="0.16077898550724637" />
+        <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/activity_order.xml" value="0.17708333333333334" />
         <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/activity_splash.xml" value="0.16077898550724637" />
+        <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/dialog_address_user.xml" value="0.17708333333333334" />
+        <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/dialog_edit_user.xml" value="0.17708333333333334" />
         <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/fragment_login_tab.xml" value="0.16077898550724637" />
         <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/fragment_order.xml" value="0.1" />
+        <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/fragment_profile.xml" value="0.17708333333333334" />
         <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/fragment_signup_tab.xml" value="0.16077898550724637" />
+        <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/item_don_hang_chi_tiet.xml" value="0.17708333333333334" />
+        <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/item_donhang.xml" value="0.17708333333333334" />
+        <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/layout/viewholder_avatar.xml" value="0.17708333333333334" />
         <entry key="..\:/1. Vuplph17965/Nhom6_App/app/src/main/res/menu/bottom_nav_home.xml" value="0.20092592592592592" />
         <entry key="..\:/Nhom6_App/app/src/main/res/layout/activity_dang_nhap.xml" value="0.13632246376811594" />
         <entry key="..\:/Nhom6_App/app/src/main/res/layout/activity_flash.xml" value="0.13632246376811594" />

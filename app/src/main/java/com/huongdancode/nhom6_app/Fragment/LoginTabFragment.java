@@ -1,7 +1,7 @@
 package com.huongdancode.nhom6_app.Fragment;
 
 
-import static com.huongdancode.nhom6_app.SplashActivity.userLogin;
+import static com.huongdancode.nhom6_app.Activity.SplashActivity.userLogin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,12 +17,11 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.database.DatabaseError;
 import com.huongdancode.nhom6_app.Dao.UserDao;
-import com.huongdancode.nhom6_app.HomeActivity;
+import com.huongdancode.nhom6_app.Activity.HomeActivity;
 import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
 import com.huongdancode.nhom6_app.LocalDatabase.LocalUserDatabase;
 import com.huongdancode.nhom6_app.Model.User;

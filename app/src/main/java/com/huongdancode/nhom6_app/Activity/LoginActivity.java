@@ -1,8 +1,7 @@
-package com.huongdancode.nhom6_app;
+package com.huongdancode.nhom6_app.Activity;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -13,16 +12,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.huongdancode.nhom6_app.Adater.LoginAdapter;
+import com.huongdancode.nhom6_app.Adapter.LoginAdapter;
+import com.huongdancode.nhom6_app.R;
 import com.huongdancode.nhom6_app.Utils.OverUtils;
 
 public class LoginActivity extends AppCompatActivity {

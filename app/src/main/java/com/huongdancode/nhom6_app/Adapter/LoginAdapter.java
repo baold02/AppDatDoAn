@@ -1,4 +1,4 @@
-package com.huongdancode.nhom6_app.Adater;
+package com.huongdancode.nhom6_app.Adapter;
 
 import android.content.Context;
 

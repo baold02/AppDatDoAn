@@ -27,22 +27,22 @@
         android:layout_marginRight="20dp"
         android:src="@drawable/edit" />
 
-<!--    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--        android:id="@+id/img_avatar_profile"-->
-<!--        android:layout_width="130dp"-->
-<!--        android:layout_height="130dp"-->
-<!--        android:layout_below="@id/img_edit_profile"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:src="@drawable/ic_image"-->
-<!--        app:civ_border_color="@color/orange"-->
-<!--        app:civ_border_width="2dp" />-->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_avatar_profile"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_below="@id/img_edit_profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_image"
+        app:civ_border_color="@color/orange"
+        app:civ_border_width="2dp" />
 
     <TextView
         android:id="@+id/tv_accountname_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_below="@id/img_avatar_profile"
         android:layout_centerHorizontal="true"
         android:padding="8dp"
         android:text="Account name"

@@ -1,11 +1,10 @@
-package com.huongdancode.nhom6_app;
+package com.huongdancode.nhom6_app.Activity;
 
 
-import static com.huongdancode.nhom6_app.SplashActivity.userLogin;
+import static com.huongdancode.nhom6_app.Activity.SplashActivity.userLogin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,10 +20,8 @@ import com.huongdancode.nhom6_app.Fragment.OrderFragment;
 import com.huongdancode.nhom6_app.Fragment.ProfileFragment;
 import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
 import com.huongdancode.nhom6_app.Model.User;
+import com.huongdancode.nhom6_app.R;
 import com.huongdancode.nhom6_app.Utils.OverUtils;
-
-
-import java.util.List;
 
 
 public class HomeActivity extends AppCompatActivity {

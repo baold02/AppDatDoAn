@@ -3,7 +3,6 @@ package com.huongdancode.nhom6_app.Fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,8 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,17 +29,15 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.huongdancode.nhom6_app.Dao.UserDao;
 import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
 import com.huongdancode.nhom6_app.Interface.IAfterInsertObject;
-import com.huongdancode.nhom6_app.LoginActivity;
+import com.huongdancode.nhom6_app.Activity.LoginActivity;
 import com.huongdancode.nhom6_app.Model.User;
 import com.huongdancode.nhom6_app.R;
 import com.huongdancode.nhom6_app.Utils.LoginViewModel;
 import com.huongdancode.nhom6_app.Utils.OverUtils;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
