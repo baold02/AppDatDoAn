@@ -1,42 +1,71 @@
 {
   "project_info": {
-    "project_number": "293888831202",
-    "firebase_url": "https://nhom6-511f7-default-rtdb.firebaseio.com",
-    "project_id": "nhom6-511f7",
-    "storage_bucket": "nhom6-511f7.appspot.com"
+    "project_number": "815332932141",
+    "firebase_url": "https://fresh-capsule-315102-default-rtdb.firebaseio.com",
+    "project_id": "fresh-capsule-315102",
+    "storage_bucket": "fresh-capsule-315102.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:293888831202:android:7e72322a8b4f24f5b438bb",
+        "mobilesdk_app_id": "1:815332932141:android:d4193b399625abed43d6a4",
         "android_client_info": {
-          "package_name": "com.huongdancode.nhom6_app"
+          "package_name": "com.example.appkhachangnhom6"
         }
       },
       "oauth_client": [
         {
-          "client_id": "293888831202-cimti9vr8et6e426la7etf9d3a020ap0.apps.googleusercontent.com",
+          "client_id": "815332932141-vimfqgqc85j0rjo7khsgjfahotvil7a7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.huongdancode.nhom6_app",
+            "package_name": "com.example.appkhachangnhom6",
             "certificate_hash": "ed133f1366ca06be7b377f975820c44f92d46b87"
           }
         },
         {
-          "client_id": "293888831202-eh7t999p9f60g380jou4husctaefjas3.apps.googleusercontent.com",
+          "client_id": "815332932141-nmddf2dk42l2miph77ncv992h9atq0u8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD5_Ts1ytlHc1-qq7B0Vv_fiL0izwuFYXs"
+          "current_key": "AIzaSyDZtN9rQgMqU-dob6JQSjPGMy8vFUFCcvk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "293888831202-eh7t999p9f60g380jou4husctaefjas3.apps.googleusercontent.com",
+              "client_id": "815332932141-nmddf2dk42l2miph77ncv992h9atq0u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815332932141:android:5b6377d68828e52543d6a4",
+        "android_client_info": {
+          "package_name": "com.huongdancode.nhom6_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815332932141-nmddf2dk42l2miph77ncv992h9atq0u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZtN9rQgMqU-dob6JQSjPGMy8vFUFCcvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815332932141-nmddf2dk42l2miph77ncv992h9atq0u8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
