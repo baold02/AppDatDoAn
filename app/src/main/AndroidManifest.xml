@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nhom6_App">
         <activity
+            android:name=".Activity.ShowProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.SplashActivity"
             android:exported="true">
             <intent-filter>
