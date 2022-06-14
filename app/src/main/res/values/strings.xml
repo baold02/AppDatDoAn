@@ -1,4 +1,4 @@
 <resources>
-    <string transparent="false" name="app_name">Nhom6_App</string>
+    <string transparent="false" name="app_name">Đặt đồ ăn online</string>
     <string transparent="false" name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
