@@ -1,10 +1,11 @@
 package com.huongdancode.nhom6_app.Activity;
 
+import static com.huongdancode.nhom6_app.Activity.FlashActivity.userLogin;
 
-import static com.huongdancode.nhom6_app.Activity.SplashActivity.userLogin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -34,7 +35,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initView();
-
+        triggerOrderFragment();
+        listenLockAccount();
         setUpBottomNavigationView();
     }
 
@@ -121,9 +123,9 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selected = null;
             if (item.getItemId() == R.id.nav_home) {
-                selected = new OrderFragment();
-            } else if (item.getItemId() == R.id.nav_order) {
                 selected = new HomeFragment();
+            } else if (item.getItemId() == R.id.nav_order) {
+                selected = new OrderFragment();
             } else if (item.getItemId() == R.id.nav_like) {
                 selected = new LikeProductFragment();
             } else if (item.getItemId() == R.id.nav_profile) {
@@ -136,10 +138,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-//    public void btnCart(View view) {
-//        Intent intent = new Intent(this, CartActivity.class);
-//        startActivity(intent);
-//    }
+    public void btnCart(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onBackPressed() {

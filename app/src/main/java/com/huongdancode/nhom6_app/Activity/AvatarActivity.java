@@ -1,6 +1,6 @@
 package com.huongdancode.nhom6_app.Activity;
 
-import static com.huongdancode.nhom6_app.Activity.SplashActivity.userLogin;
+import static com.huongdancode.nhom6_app.Activity.FlashActivity.userLogin;
 import static com.huongdancode.nhom6_app.Utils.OverUtils.ERROR_MESSAGE;
 
 import android.annotation.SuppressLint;

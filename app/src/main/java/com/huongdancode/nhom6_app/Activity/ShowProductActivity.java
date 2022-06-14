@@ -1,5 +1,8 @@
 package com.huongdancode.nhom6_app.Activity;
 
+import static com.huongdancode.nhom6_app.Activity.FlashActivity.userLogin;
+import static com.huongdancode.nhom6_app.Utils.OverUtils.ERROR_MESSAGE;
+
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -13,14 +16,20 @@ import android.widget.ToggleButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseError;
+import com.huongdancode.nhom6_app.Dao.GioHangDao;
 import com.huongdancode.nhom6_app.Dao.ProductDao;
+import com.huongdancode.nhom6_app.Dao.UserDao;
 import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
+import com.huongdancode.nhom6_app.Interface.IAfterInsertObject;
+import com.huongdancode.nhom6_app.Model.GioHang;
 import com.huongdancode.nhom6_app.Model.Product;
 import com.huongdancode.nhom6_app.R;
 import com.huongdancode.nhom6_app.Utils.OverUtils;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -100,7 +109,7 @@ public class ShowProductActivity extends AppCompatActivity {
 
             @Override
             public void onError(DatabaseError error) {
-                OverUtils.makeToast(ShowProductActivity.this, OverUtils.ERROR_MESSAGE);
+                OverUtils.makeToast(ShowProductActivity.this, ERROR_MESSAGE);
             }
         });
     }
@@ -151,14 +160,14 @@ public class ShowProductActivity extends AppCompatActivity {
                 btnMuaNgay.setEnabled(false);
             }
         } else {
-//            btnAddToCart.setEnabled(true);
-//            btnMuaNgay.setEnabled(true);
-//            btnMuaNgay.setOnClickListener(v -> {
-//                Intent intent = new Intent(ShowProductActivity.this, ThanhToanNgayActivity.class);
-//                intent.putExtra("productId", productDaChon.getId());
-//                intent.putExtra("so_luong", soLuong);
-//                startActivity(intent);
-//            });
+            btnAddToCart.setEnabled(true);
+            btnMuaNgay.setEnabled(true);
+            btnMuaNgay.setOnClickListener(v -> {
+                Intent intent = new Intent(ShowProductActivity.this, ThanhToanNgayActivity.class);
+                intent.putExtra("productId", productDaChon.getId());
+                intent.putExtra("so_luong", soLuong);
+                startActivity(intent);
+            });
         }
 
         tvNameProduct.setText(name);
@@ -188,119 +197,119 @@ public class ShowProductActivity extends AppCompatActivity {
         tvProcessingTime.setText(Processingtime + " phút");
 
         // xử lý phần yêu thích của người dùng, nếu người dùng đã yêu thích từ trước hiển thị tim màu cam, ngược lại tim màu trắng
-//        List<String> sanPhamYeuThichList = userLogin.getMa_sp_da_thich();
-//        if (sanPhamYeuThichList != null) {
-//            for (String spYT : sanPhamYeuThichList) {
-//                if (spYT.equals(productDaChon.getId())) {
-//                    btnLike.setChecked(true); // set checked tự động chuyển màu sang màu cam hay đỏ gì đó thì hỏi MR.Cường :))
-//                }
-//            }
-//        }
+        List<String> sanPhamYeuThichList = userLogin.getMa_sp_da_thich();
+        if (sanPhamYeuThichList != null) {
+            for (String spYT : sanPhamYeuThichList) {
+                if (spYT.equals(productDaChon.getId())) {
+                    btnLike.setChecked(true); // set checked tự động chuyển màu sang màu cam hay đỏ gì đó thì hỏi MR.Cường :))
+                }
+            }
+        }
 
         /// btn Add to card
-//        btnAddToCard();
-//        setUpBtnLike();
+        btnAddToCard();
+        setUpBtnLike();
 
     }
 
-//    private void setUpBtnLike() {
-//        if (productDaChon.getTrang_thai().equals(OverUtils.DUNG_KINH_DOANH)) {
-//            btnLike.setEnabled(false);
-//            return;
-//        }
-//        btnLike.setOnClickListener(v -> {
-//            if (btnLike.isChecked()) {
-//                // xử lý phần user
-//                List<String> sanPhamYeuThichList = userLogin.getMa_sp_da_thich();
-//                if (sanPhamYeuThichList == null) {
-//                    sanPhamYeuThichList = new ArrayList<>();
-//                }
-//                sanPhamYeuThichList.add(productDaChon.getId());
-//                userLogin.setMa_sp_da_thich(sanPhamYeuThichList);
-//                UserDao.getInstance().updateUser(userLogin,
-//                        userLogin.toMapSPDaThich());
-//
-//                // xử lý phần sản phẩm
-//                productDaChon.setRate(productDaChon.getRate() + 1);
-//                ProductDao.getInstance().updateProduct(productDaChon, productDaChon.toMapRate());
-//
-//
-//            } else {
-//
-//                // xử lý phần user
-//                List<String> sanPhamYeuThichList = userLogin.getMa_sp_da_thich();
-//                int viTri = 0; // vị trí này dùng để xóa cái sp mà user đã thích từ trước
-//                for (int i = 0; i < sanPhamYeuThichList.size(); i++) {
-//                    if (sanPhamYeuThichList.get(i).equals(productDaChon.getId())) {
-//                        viTri = i;
-//                    }
-//                }
-//                sanPhamYeuThichList.remove(viTri);
-//                userLogin.setMa_sp_da_thich(sanPhamYeuThichList);
-//                UserDao.getInstance().updateUser(userLogin,
-//                        userLogin.toMapSPDaThich());
-//
-//                // xử lý phần sản phẩm
-//                productDaChon.setRate(productDaChon.getRate() - 1);
-//                ProductDao.getInstance().updateProduct(productDaChon, productDaChon.toMapRate());
-//            }
-//        });
-//    }
+    private void setUpBtnLike() {
+        if (productDaChon.getTrang_thai().equals(OverUtils.DUNG_KINH_DOANH)) {
+            btnLike.setEnabled(false);
+            return;
+        }
+        btnLike.setOnClickListener(v -> {
+            if (btnLike.isChecked()) {
+                // xử lý phần user
+                List<String> sanPhamYeuThichList = userLogin.getMa_sp_da_thich();
+                if (sanPhamYeuThichList == null) {
+                    sanPhamYeuThichList = new ArrayList<>();
+                }
+                sanPhamYeuThichList.add(productDaChon.getId());
+                userLogin.setMa_sp_da_thich(sanPhamYeuThichList);
+                UserDao.getInstance().updateUser(userLogin,
+                        userLogin.toMapSPDaThich());
 
-//    public void btnAddToCard() {
-//        btnAddToCart.setOnClickListener(v -> {
-//            GioHang gioHang = new GioHang(productDaChon.getId(), soLuong);
-//            List<GioHang> gioHangList = userLogin.getGio_hang();
-//            if (gioHangList == null) {
-//                gioHangList = new ArrayList<>();
-//                gioHangList.add(gioHang);
-//                postGioHang(gioHangList);
-//            } else {
-//                boolean tonTaiGioHangCuaSP = false;
-//                for (GioHang dhct : gioHangList) {
-//                    if (dhct.getMa_sp().equals(gioHang.getMa_sp())) {
-//                        tonTaiGioHangCuaSP = true;
-//                    }
-//                }
-//
-//                if (tonTaiGioHangCuaSP) {
-//                    for (GioHang dhct : gioHangList) {
-//                        if (dhct.getMa_sp().equals(gioHang.getMa_sp())) {
-//                            int soLuong = dhct.getSo_luong() + gioHang.getSo_luong();
-//                            if (soLuong > 50) {
-//                                OverUtils.makeToast(ShowProductActivity.this, "Số lượng hàng của 1 sản phẩm phẩm không quá 50 sp");
-//                            } else {
-//                                dhct.setSo_luong(soLuong);
-//                            }
-//                        }
-//                    }
-//                    postGioHang(gioHangList);
-//                } else {
-//                    gioHangList.add(gioHang);
-//                    postGioHang(gioHangList);
-//                }
-//            }
-//        });
-//    }
+                // xử lý phần sản phẩm
+                productDaChon.setRate(productDaChon.getRate() + 1);
+                ProductDao.getInstance().updateProduct(productDaChon, productDaChon.toMapRate());
 
-//    private void postGioHang(List<GioHang> gioHangList) {
-//        userLogin.setGio_hang(gioHangList);
-//        GioHangDao.getInstance().insertGioHang(userLogin,
-//                userLogin.getGio_hang(),
-//                new IAfterInsertObject() {
-//                    @Override
-//                    public void onSuccess(Object obj) {
-//                        soLuong = 1;
-//                        tvQuantity.setText(String.valueOf(soLuong));
-//                        OverUtils.makeToast(ShowProductActivity.this, "Thêm thành công");
-//                    }
-//
-//                    @Override
-//                    public void onError(DatabaseError exception) {
-//                        OverUtils.makeToast(ShowProductActivity.this, ERROR_MESSAGE);
-//                    }
-//                });
-//    }
+
+            } else {
+
+                // xử lý phần user
+                List<String> sanPhamYeuThichList = userLogin.getMa_sp_da_thich();
+                int viTri = 0; // vị trí này dùng để xóa cái sp mà user đã thích từ trước
+                for (int i = 0; i < sanPhamYeuThichList.size(); i++) {
+                    if (sanPhamYeuThichList.get(i).equals(productDaChon.getId())) {
+                        viTri = i;
+                    }
+                }
+                sanPhamYeuThichList.remove(viTri);
+                userLogin.setMa_sp_da_thich(sanPhamYeuThichList);
+                UserDao.getInstance().updateUser(userLogin,
+                        userLogin.toMapSPDaThich());
+
+                // xử lý phần sản phẩm
+                productDaChon.setRate(productDaChon.getRate() - 1);
+                ProductDao.getInstance().updateProduct(productDaChon, productDaChon.toMapRate());
+            }
+        });
+    }
+
+    public void btnAddToCard() {
+        btnAddToCart.setOnClickListener(v -> {
+            GioHang gioHang = new GioHang(productDaChon.getId(), soLuong);
+            List<GioHang> gioHangList = userLogin.getGio_hang();
+            if (gioHangList == null) {
+                gioHangList = new ArrayList<>();
+                gioHangList.add(gioHang);
+                postGioHang(gioHangList);
+            } else {
+                boolean tonTaiGioHangCuaSP = false;
+                for (GioHang dhct : gioHangList) {
+                    if (dhct.getMa_sp().equals(gioHang.getMa_sp())) {
+                        tonTaiGioHangCuaSP = true;
+                    }
+                }
+
+                if (tonTaiGioHangCuaSP) {
+                    for (GioHang dhct : gioHangList) {
+                        if (dhct.getMa_sp().equals(gioHang.getMa_sp())) {
+                            int soLuong = dhct.getSo_luong() + gioHang.getSo_luong();
+                            if (soLuong > 50) {
+                                OverUtils.makeToast(ShowProductActivity.this, "Số lượng hàng của 1 sản phẩm phẩm không quá 50 sp");
+                            } else {
+                                dhct.setSo_luong(soLuong);
+                            }
+                        }
+                    }
+                    postGioHang(gioHangList);
+                } else {
+                    gioHangList.add(gioHang);
+                    postGioHang(gioHangList);
+                }
+            }
+        });
+    }
+
+    private void postGioHang(List<GioHang> gioHangList) {
+        userLogin.setGio_hang(gioHangList);
+        GioHangDao.getInstance().insertGioHang(userLogin,
+                userLogin.getGio_hang(),
+                new IAfterInsertObject() {
+                    @Override
+                    public void onSuccess(Object obj) {
+                        soLuong = 1;
+                        tvQuantity.setText(String.valueOf(soLuong));
+                        OverUtils.makeToast(ShowProductActivity.this, "Thêm thành công");
+                    }
+
+                    @Override
+                    public void onError(DatabaseError exception) {
+                        OverUtils.makeToast(ShowProductActivity.this, ERROR_MESSAGE);
+                    }
+                });
+    }
 
     @Override
     protected void onPause() {

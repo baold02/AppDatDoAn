@@ -1,7 +1,8 @@
 package com.huongdancode.nhom6_app.Fragment;
 
+import static com.huongdancode.nhom6_app.Activity.FlashActivity.userLogin;
+import static com.huongdancode.nhom6_app.Utils.OverUtils.ERROR_MESSAGE;
 
-import static com.huongdancode.nhom6_app.Activity.SplashActivity.userLogin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,15 +21,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.database.DatabaseError;
-import com.huongdancode.nhom6_app.Dao.UserDao;
 import com.huongdancode.nhom6_app.Activity.HomeActivity;
+import com.huongdancode.nhom6_app.Dao.UserDao;
 import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
 import com.huongdancode.nhom6_app.LocalDatabase.LocalUserDatabase;
 import com.huongdancode.nhom6_app.Model.User;
 import com.huongdancode.nhom6_app.R;
 import com.huongdancode.nhom6_app.Utils.LoginViewModel;
 import com.huongdancode.nhom6_app.Utils.OverUtils;
-
 
 
 public class LoginTabFragment extends Fragment {
@@ -121,7 +121,7 @@ public class LoginTabFragment extends Fragment {
             String userName = edtTenDangNhap.getText().toString().trim();
             String password = edtMatKhau.getText().toString().trim();
             if (validateInput(userName, password)) {
-                    UserDao.getInstance().getUserByUserName(userName, new IAfterGetAllObject() {
+                UserDao.getInstance().getUserByUserName(userName, new IAfterGetAllObject() {
                     @Override
                     public void iAfterGetAllObject(Object obj) {
                         if (obj == null) {
@@ -145,7 +145,7 @@ public class LoginTabFragment extends Fragment {
 
                     @Override
                     public void onError(DatabaseError error) {
-                        OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
+                        OverUtils.makeToast(getContext(), ERROR_MESSAGE);
                     }
                 });
             }

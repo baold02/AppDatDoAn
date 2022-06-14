@@ -22,7 +22,7 @@ public class ChiTietDonHangAdapter extends RecyclerView.Adapter<ChiTietDonHangAd
     private Context context;
     private List<DonHangChiTiet> donHangChiTietList;
 
-    public ChiTietDonHangAdapter(Context context, List<DonHangChiTiet> donHangChiTietList) {
+    public ChiTietDonHangAdapter(Context context,List<DonHangChiTiet> donHangChiTietList) {
         this.context = context;
         this.donHangChiTietList = donHangChiTietList;
     }

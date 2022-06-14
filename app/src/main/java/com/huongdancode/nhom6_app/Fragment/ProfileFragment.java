@@ -1,6 +1,6 @@
 package com.huongdancode.nhom6_app.Fragment;
 
-import static com.huongdancode.nhom6_app.Activity.SplashActivity.userLogin;
+import static com.huongdancode.nhom6_app.Activity.FlashActivity.userLogin;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -30,13 +30,13 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.firebase.database.DatabaseError;
 import com.huongdancode.nhom6_app.Activity.AvatarActivity;
+import com.huongdancode.nhom6_app.Activity.LoginActivity;
 import com.huongdancode.nhom6_app.Activity.OrderActivity;
 import com.huongdancode.nhom6_app.Dao.UserDao;
 import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
 import com.huongdancode.nhom6_app.Interface.IAfterRequestPermission;
 import com.huongdancode.nhom6_app.Interface.IAfterUpdateObject;
 import com.huongdancode.nhom6_app.LocalDatabase.LocalUserDatabase;
-import com.huongdancode.nhom6_app.Activity.LoginActivity;
 import com.huongdancode.nhom6_app.Model.User;
 import com.huongdancode.nhom6_app.R;
 import com.huongdancode.nhom6_app.Utils.OverUtils;
@@ -291,4 +291,5 @@ public class ProfileFragment extends Fragment {
         }
         return true;
     }
+
 }

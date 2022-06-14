@@ -103,7 +103,7 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0 "
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/fab_google"
             app:layout_constraintTop_toBottomOf="@+id/view_pager"
             app:layout_constraintVertical_bias="0.5"

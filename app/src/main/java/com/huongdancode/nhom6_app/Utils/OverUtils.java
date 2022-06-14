@@ -56,6 +56,11 @@ public class OverUtils {
         }
         return simpleDateFormat;
     }
+
+    public static void makeToast(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
     public static SharedPreferences getSPInstance(Context context, String nameFile) {
         if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences(nameFile, MODE_PRIVATE);
@@ -63,9 +68,6 @@ public class OverUtils {
         return sharedPreferences;
     }
 
-    public static void makeToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-    }
     public static String getExtensionFile(Context context, Uri uri) {
         ContentResolver cr = context.getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();

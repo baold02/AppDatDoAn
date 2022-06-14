@@ -1,8 +1,7 @@
 package com.huongdancode.nhom6_app.Fragment;
 
-
-import static com.huongdancode.nhom6_app.Activity.SplashActivity.userLogin;
-
+import static com.huongdancode.nhom6_app.Activity.FlashActivity.userLogin;
+import static com.huongdancode.nhom6_app.Utils.OverUtils.ERROR_MESSAGE;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseError;
 import com.huongdancode.nhom6_app.Activity.ProductActivity;
+import com.huongdancode.nhom6_app.Activity.SearchActivity;
+import com.huongdancode.nhom6_app.Activity.ShowProductActivity;
 import com.huongdancode.nhom6_app.Adapter.CategoryAdapter;
 import com.huongdancode.nhom6_app.Adapter.HorizontalProductAdapter;
+import com.huongdancode.nhom6_app.Dao.GioHangDao;
 import com.huongdancode.nhom6_app.Dao.ProductDao;
 import com.huongdancode.nhom6_app.Dao.ProductTypeDao;
 import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
@@ -29,17 +31,17 @@ import com.huongdancode.nhom6_app.Interface.IAfterInsertObject;
 import com.huongdancode.nhom6_app.Interface.OnAddToCard;
 import com.huongdancode.nhom6_app.Interface.OnClickItem;
 import com.huongdancode.nhom6_app.Interface.UpdateRecyclerView;
-
+import com.huongdancode.nhom6_app.LocalDatabase.LocalUserDatabase;
+import com.huongdancode.nhom6_app.Model.GioHang;
 import com.huongdancode.nhom6_app.Model.LoaiSP;
 import com.huongdancode.nhom6_app.Model.Product;
 import com.huongdancode.nhom6_app.R;
 import com.huongdancode.nhom6_app.Utils.OverUtils;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements UpdateRecyclerView {
+public class HomeFragment extends Fragment implements UpdateRecyclerView, OnClickItem, OnAddToCard {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,90 +83,90 @@ public class HomeFragment extends Fragment implements UpdateRecyclerView {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         setUpTvHoTen();
-        //setUpTvTimKiem();
+        setUpTvTimKiem();
         recyclerViewCategory();
-//        setUpRcvPhoBien();
-//        setUpRcvKhuyenMai();
-//        setUpRcvMoiNhat();
+        setUpRcvPhoBien();
+        setUpRcvKhuyenMai();
+        setUpRcvMoiNhat();
     }
 
-//    private void setUpRcvMoiNhat() {
-//        moiNhatProductList = new ArrayList<>();
-//        moiNhatAdapter = new HorizontalProductAdapter(moiNhatProductList, this, this, OverUtils.TYPE_SP_MOI_ADAPTER);
-//        rcvSanPhamMoiNhat.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-//        rcvSanPhamMoiNhat.setAdapter(moiNhatAdapter);
-//        ProductDao.getInstance().getSanPhamMoi(10, new IAfterGetAllObject() {
-//            @Override
-//            public void iAfterGetAllObject(Object obj) {
-//                moiNhatProductList = (List<Product>) obj;
-//                moiNhatAdapter.setData(moiNhatProductList);
-//            }
-//
-//            @Override
-//            public void onError(DatabaseError error) {
-//                OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
-//            }
-//        });
-//
-//    }
+    private void setUpRcvMoiNhat() {
+        moiNhatProductList = new ArrayList<>();
+        moiNhatAdapter = new HorizontalProductAdapter(moiNhatProductList, this, this, OverUtils.TYPE_SP_MOI_ADAPTER);
+        rcvSanPhamMoiNhat.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rcvSanPhamMoiNhat.setAdapter(moiNhatAdapter);
+        ProductDao.getInstance().getSanPhamMoi(10, new IAfterGetAllObject() {
+            @Override
+            public void iAfterGetAllObject(Object obj) {
+                moiNhatProductList = (List<Product>) obj;
+                moiNhatAdapter.setData(moiNhatProductList);
+            }
 
-//    private void setUpRcvKhuyenMai() {
-//        khuyenMaiProductList = new ArrayList<>();
-//        khuyenMaiAdapter =
-//                new HorizontalProductAdapter(khuyenMaiProductList, this, this, OverUtils.TYPE_KHUYEN_MAI_ADAPTER);
-//        rcvSanPhamKhuyenMai.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-//        rcvSanPhamKhuyenMai.setAdapter(khuyenMaiAdapter);
-//
-//        ProductDao.getInstance().getSanPhamKhuyenMai(10, new IAfterGetAllObject() {
-//            @Override
-//            public void iAfterGetAllObject(Object obj) {
-//                khuyenMaiProductList = (List<Product>) obj;
-//                khuyenMaiAdapter.setData(khuyenMaiProductList);
-//            }
-//
-//            @Override
-//            public void onError(DatabaseError error) {
-//                OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
-//            }
-//        });
-//    }
-//
-//    private void setUpRcvPhoBien() {
-//        popularProductList = new ArrayList<>();
-//        popularProductAdapter =
-//                new HorizontalProductAdapter(popularProductList, this, this, OverUtils.TYPE_PHO_BIEN_ADAPTER);
-//        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-//        recyclerViewPopular.setAdapter(popularProductAdapter);
-//
-//        ProductDao.getInstance().getSanPhamPhoBien(10, new IAfterGetAllObject() {
-//            @Override
-//            public void iAfterGetAllObject(Object obj) {
-//                popularProductList = (List<Product>) obj;
-//                popularProductAdapter.setData(popularProductList);
-//            }
-//
-//            @Override
-//            public void onError(DatabaseError error) {
-//                OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
-//            }
-//        });
-//
-//    }
+            @Override
+            public void onError(DatabaseError error) {
+                OverUtils.makeToast(getContext(), ERROR_MESSAGE);
+            }
+        });
+
+    }
+
+    private void setUpRcvKhuyenMai() {
+        khuyenMaiProductList = new ArrayList<>();
+        khuyenMaiAdapter =
+                new HorizontalProductAdapter(khuyenMaiProductList, this, this, OverUtils.TYPE_KHUYEN_MAI_ADAPTER);
+        rcvSanPhamKhuyenMai.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rcvSanPhamKhuyenMai.setAdapter(khuyenMaiAdapter);
+
+        ProductDao.getInstance().getSanPhamKhuyenMai(10, new IAfterGetAllObject() {
+            @Override
+            public void iAfterGetAllObject(Object obj) {
+                khuyenMaiProductList = (List<Product>) obj;
+                khuyenMaiAdapter.setData(khuyenMaiProductList);
+            }
+
+            @Override
+            public void onError(DatabaseError error) {
+                OverUtils.makeToast(getContext(), ERROR_MESSAGE);
+            }
+        });
+    }
+
+    private void setUpRcvPhoBien() {
+        popularProductList = new ArrayList<>();
+        popularProductAdapter =
+                new HorizontalProductAdapter(popularProductList, this, this, OverUtils.TYPE_PHO_BIEN_ADAPTER);
+        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewPopular.setAdapter(popularProductAdapter);
+
+        ProductDao.getInstance().getSanPhamPhoBien(10, new IAfterGetAllObject() {
+            @Override
+            public void iAfterGetAllObject(Object obj) {
+                popularProductList = (List<Product>) obj;
+                popularProductAdapter.setData(popularProductList);
+            }
+
+            @Override
+            public void onError(DatabaseError error) {
+                OverUtils.makeToast(getContext(), ERROR_MESSAGE);
+            }
+        });
+
+    }
 
     private void setUpTvTimKiem() {
         tvTimKiem.setOnClickListener(v -> {
-//            Intent intent = new Intent(getContext(), SearchActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(getContext(), SearchActivity.class);
+            startActivity(intent);
         });
     }
 
     private void setUpTvHoTen() {
         String hoTen = userLogin.getName();
         if (hoTen != null) {
-            tvTenNguoiDung.setText("Xin Chào " + hoTen);
+            tvTenNguoiDung.setText("Hi " + hoTen);
         } else {
             String userName = userLogin.getUsername();
-            tvTenNguoiDung.setText("Xin Chào " + userName);
+            tvTenNguoiDung.setText("Hi " + userName);
         }
     }
 
@@ -206,73 +208,73 @@ public class HomeFragment extends Fragment implements UpdateRecyclerView {
         intent.putExtra("categoryId", categoryId);
         startActivity(intent);
     }
-//
-//    @Override
-//    public void onClickItem(Object obj) {
-//        String productId = (String) obj;
-//        Intent intent = new Intent(getContext(), ShowProductActivity.class);
-//        intent.putExtra("productId", productId);
-//        startActivity(intent);
-//    }
-//
-//    @Override
-//    public void onDeleteItem(Object obj) {
-//    }
-//
-//    @Override
-//    public void onAddToCard(Product product) {
-//        GioHang gioHang = new GioHang(product.getId(), 1);
-//        List<GioHang> gioHangList = userLogin.getGio_hang();
-//        if (gioHangList == null) {
-//            gioHangList = new ArrayList<>();
-//            gioHangList.add(gioHang);
-//            postGioHang(gioHangList);
-//        } else {
-//            boolean tonTaiGioHangCuaSP = false;
-//            for (GioHang dhct : gioHangList) {
-//                if (dhct.getMa_sp().equals(gioHang.getMa_sp())) {
-//                    tonTaiGioHangCuaSP = true;
-//                }
-//            }
-//
-//            if (tonTaiGioHangCuaSP) {
-//                for (GioHang dhct : gioHangList) {
-//                    if (dhct.getMa_sp().equals(gioHang.getMa_sp())) {
-//                        int soLuong = dhct.getSo_luong() + gioHang.getSo_luong();
-//                        if (soLuong > 50) {
-//                            OverUtils.makeToast(getContext(), "Số lượng hàng của 1 sản phẩm phẩm không quá 50 sp");
-//                        } else {
-//                            dhct.setSo_luong(soLuong);
-//                        }
-//
-//                    }
-//                }
-//                postGioHang(gioHangList);
-//            } else {
-//                gioHangList.add(gioHang);
-//                postGioHang(gioHangList);
-//            }
-//        }
-//
-//    }
-//
-//    private void postGioHang(List<GioHang> gioHangList) {
-//        userLogin.setGio_hang(gioHangList);
-//        GioHangDao.getInstance().insertGioHang(userLogin,
-//                userLogin.getGio_hang(),
-//                new IAfterInsertObject() {
-//                    @Override
-//                    public void onSuccess(Object obj) {
-//                        LocalUserDatabase.getInstance(getContext()).getUserDao().update(userLogin);
-//                        OverUtils.makeToast(getContext(), "Thêm thành công");
-//                    }
-//
-//                    @Override
-//                    public void onError(DatabaseError exception) {
-//                        OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
-//                    }
-//                });
-//    }
+
+    @Override
+    public void onClickItem(Object obj) {
+        String productId = (String) obj;
+        Intent intent = new Intent(getContext(), ShowProductActivity.class);
+        intent.putExtra("productId", productId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDeleteItem(Object obj) {
+    }
+
+    @Override
+    public void onAddToCard(Product product) {
+        GioHang gioHang = new GioHang(product.getId(), 1);
+        List<GioHang> gioHangList = userLogin.getGio_hang();
+        if (gioHangList == null) {
+            gioHangList = new ArrayList<>();
+            gioHangList.add(gioHang);
+            postGioHang(gioHangList);
+        } else {
+            boolean tonTaiGioHangCuaSP = false;
+            for (GioHang dhct : gioHangList) {
+                if (dhct.getMa_sp().equals(gioHang.getMa_sp())) {
+                    tonTaiGioHangCuaSP = true;
+                }
+            }
+
+            if (tonTaiGioHangCuaSP) {
+                for (GioHang dhct : gioHangList) {
+                    if (dhct.getMa_sp().equals(gioHang.getMa_sp())) {
+                        int soLuong = dhct.getSo_luong() + gioHang.getSo_luong();
+                        if (soLuong > 50) {
+                            OverUtils.makeToast(getContext(), "Số lượng hàng của 1 sản phẩm phẩm không quá 50 sp");
+                        } else {
+                            dhct.setSo_luong(soLuong);
+                        }
+
+                    }
+                }
+                postGioHang(gioHangList);
+            } else {
+                gioHangList.add(gioHang);
+                postGioHang(gioHangList);
+            }
+        }
+
+    }
+
+    private void postGioHang(List<GioHang> gioHangList) {
+        userLogin.setGio_hang(gioHangList);
+        GioHangDao.getInstance().insertGioHang(userLogin,
+                userLogin.getGio_hang(),
+                new IAfterInsertObject() {
+                    @Override
+                    public void onSuccess(Object obj) {
+                        LocalUserDatabase.getInstance(getContext()).getUserDao().update(userLogin);
+                        OverUtils.makeToast(getContext(), "Thêm thành công");
+                    }
+
+                    @Override
+                    public void onError(DatabaseError exception) {
+                        OverUtils.makeToast(getContext(), ERROR_MESSAGE);
+                    }
+                });
+    }
 
 
 }

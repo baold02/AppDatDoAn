@@ -1,5 +1,8 @@
 package com.huongdancode.nhom6_app.Activity;
 
+import static com.huongdancode.nhom6_app.Utils.OverUtils.ERROR_MESSAGE;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -43,10 +46,10 @@ public class ProductActivity extends AppCompatActivity implements UpdateRecycler
         recyclerViewCategory();
         recyclerViewProduct();
 
-//        edtTimKiem.setOnClickListener(v -> {
-//            Intent intent = new Intent(ProductActivity.this, SearchActivity.class);
-//            startActivity(intent);
-//        });
+        edtTimKiem.setOnClickListener(v -> {
+            Intent intent = new Intent(ProductActivity.this, SearchActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void anhXa() {
@@ -70,7 +73,7 @@ public class ProductActivity extends AppCompatActivity implements UpdateRecycler
 
             @Override
             public void onError(DatabaseError error) {
-                OverUtils.makeToast(ProductActivity.this, OverUtils.ERROR_MESSAGE);
+                OverUtils.makeToast(ProductActivity.this, ERROR_MESSAGE);
             }
         });
     }
@@ -91,7 +94,7 @@ public class ProductActivity extends AppCompatActivity implements UpdateRecycler
 
             @Override
             public void onError(DatabaseError error) {
-                OverUtils.makeToast(ProductActivity.this, OverUtils.ERROR_MESSAGE);
+                OverUtils.makeToast(ProductActivity.this, ERROR_MESSAGE);
             }
         });
     }
@@ -112,7 +115,7 @@ public class ProductActivity extends AppCompatActivity implements UpdateRecycler
 
             @Override
             public void onError(DatabaseError error) {
-                OverUtils.makeToast(ProductActivity.this, OverUtils.ERROR_MESSAGE);
+                OverUtils.makeToast(ProductActivity.this, ERROR_MESSAGE);
             }
         });
     }

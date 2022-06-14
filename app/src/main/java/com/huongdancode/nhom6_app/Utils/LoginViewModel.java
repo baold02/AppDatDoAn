@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.huongdancode.nhom6_app.Model.User;
 
-
 public class LoginViewModel extends ViewModel{
     private final MutableLiveData<User> selectedItem = new MutableLiveData<>();
 

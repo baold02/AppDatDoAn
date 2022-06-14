@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.huongdancode.nhom6_app.Interface.ClickAvatar;
 import com.huongdancode.nhom6_app.Model.Avatar;
 import com.huongdancode.nhom6_app.R;
-import com.huongdancode.nhom6_app.Model.Avatar;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

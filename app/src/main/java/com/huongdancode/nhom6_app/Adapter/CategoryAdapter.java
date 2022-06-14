@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.huongdancode.nhom6_app.Interface.UpdateRecyclerView;
 import com.huongdancode.nhom6_app.Model.LoaiSP;
 import com.huongdancode.nhom6_app.R;

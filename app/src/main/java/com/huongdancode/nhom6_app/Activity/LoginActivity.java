@@ -1,10 +1,5 @@
 package com.huongdancode.nhom6_app.Activity;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +7,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.huongdancode.nhom6_app.Adapter.LoginAdapter;
@@ -44,8 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         initView();
         setUpTabLauout();
         setUpViewAnimation();
-
-
+        triggerCallPhone();
     }
 
     private void initView() {
@@ -87,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         twitter.animate().translationY(0).alpha(1).setDuration(2000).setStartDelay(800).start();
         tabLayout.animate().translationY(0).alpha(1).setDuration(2000).setStartDelay(100).start();
     }
+
     private void triggerCallPhone() {
         Intent intent = getIntent();
         if (intent != null && intent.getAction() != null) {
@@ -103,11 +103,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
     private void callPhone() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel:1900 1000"));
         startActivity(intent);
     }
+
 
 }

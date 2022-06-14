@@ -234,8 +234,6 @@ public class ProductDao {
         });
     }
 
-
-
     public void getProductByType(String idLoaiSP, IAfterGetAllObject iAfterGetAllObject) {
         Query query = FirebaseDatabase.getInstance().getReference().child("san_pham")
                 .orderByChild("loai_sp").equalTo(idLoaiSP);

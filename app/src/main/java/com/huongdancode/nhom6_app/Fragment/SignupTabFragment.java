@@ -1,15 +1,10 @@
 package com.huongdancode.nhom6_app.Fragment;
 
-
+import static com.huongdancode.nhom6_app.Utils.OverUtils.ERROR_MESSAGE;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,10 +29,11 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseError;
+import com.huongdancode.nhom6_app.Activity.LoginActivity;
+import com.huongdancode.nhom6_app.Activity.NhapOTPActivity;
 import com.huongdancode.nhom6_app.Dao.UserDao;
 import com.huongdancode.nhom6_app.Interface.IAfterGetAllObject;
 import com.huongdancode.nhom6_app.Interface.IAfterInsertObject;
-import com.huongdancode.nhom6_app.Activity.LoginActivity;
 import com.huongdancode.nhom6_app.Model.User;
 import com.huongdancode.nhom6_app.R;
 import com.huongdancode.nhom6_app.Utils.LoginViewModel;
@@ -125,7 +126,7 @@ public class SignupTabFragment extends Fragment {
                     public void iAfterGetAllObject(Object obj) {
                         if ((Boolean) obj) {
                             OverUtils.makeToast(getContext(), "Tên đăng nhập này đễ tồn tại");
-                        } else  {
+                        } else {
                             UserDao.getInstance().isDuplicatePhoneNumber(phone_number, new IAfterGetAllObject() {
                                 @Override
                                 public void iAfterGetAllObject(Object obj) {
@@ -145,7 +146,7 @@ public class SignupTabFragment extends Fragment {
 
                                         @Override
                                         public void onError(DatabaseError exception) {
-                                            OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
+                                            OverUtils.makeToast(getContext(), ERROR_MESSAGE);
                                         }
                                     });
 
@@ -153,7 +154,7 @@ public class SignupTabFragment extends Fragment {
 
                                 @Override
                                 public void onError(DatabaseError error) {
-                                    OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
+                                    OverUtils.makeToast(getContext(), ERROR_MESSAGE);
                                 }
                             });
                         }
@@ -161,7 +162,7 @@ public class SignupTabFragment extends Fragment {
 
                     @Override
                     public void onError(DatabaseError error) {
-                        OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
+                        OverUtils.makeToast(getContext(), ERROR_MESSAGE);
                     }
                 });
             }
@@ -240,7 +241,7 @@ public class SignupTabFragment extends Fragment {
                             public void onCodeSent(@NonNull String verificationId,
                                                    @NonNull PhoneAuthProvider.ForceResendingToken token) {
                                 Log.d("TAG", "onCodeSent:" + verificationId);
-                               // goToEnterOTPActivity(user, verificationId);
+                                goToEnterOTPActivity(user, verificationId);
                             }
 
 
@@ -266,7 +267,7 @@ public class SignupTabFragment extends Fragment {
 
                                 @Override
                                 public void onError(DatabaseError exception) {
-                                    OverUtils.makeToast(getContext(), OverUtils.ERROR_MESSAGE);
+                                    OverUtils.makeToast(getContext(), ERROR_MESSAGE);
                                 }
                             });
 
@@ -281,9 +282,10 @@ public class SignupTabFragment extends Fragment {
                 });
     }
 
-//    private void goToEnterOTPActivity(User user, String verificationId) {
-//        Intent intent = new Intent(getContext(), NhapOTPActivity.class);
-//        intent.putExtra("user", user);
-//        intent.putExtra("verificationId", verificationId);
-//        startActivity(intent);
+    private void goToEnterOTPActivity(User user, String verificationId) {
+        Intent intent = new Intent(getContext(), NhapOTPActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("verificationId", verificationId);
+        startActivity(intent);
     }
+}

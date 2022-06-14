@@ -5,12 +5,14 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.huongdancode.nhom6_app.Model.User;
 
 @Database(entities = {User.class}, version = 1)
+@TypeConverters({StringTypeConverter.class, GioHangTypeConverter.class})
 public abstract class LocalUserDatabase extends RoomDatabase {
-    private static final String DATABASE_NAME = "User.db";
+    private static final String DATABASE_NAME = "user.db";
     private static LocalUserDatabase instance;
 
     public synchronized static LocalUserDatabase getInstance(Context context) {

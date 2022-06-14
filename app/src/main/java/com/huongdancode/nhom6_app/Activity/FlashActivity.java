@@ -2,13 +2,13 @@ package com.huongdancode.nhom6_app.Activity;
 
 import static com.huongdancode.nhom6_app.Utils.OverUtils.ERROR_MESSAGE;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.firebase.database.DatabaseError;
@@ -21,13 +21,13 @@ import com.huongdancode.nhom6_app.Utils.OverUtils;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SplashActivity extends AppCompatActivity {
 
+public class FlashActivity extends AppCompatActivity {
     public static User userLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String passState = OverUtils.getSPInstance(SplashActivity.this, OverUtils.PASS_FILE)
+        String passState = OverUtils.getSPInstance(FlashActivity.this, OverUtils.PASS_FILE)
                 .getString("pass", OverUtils.NO_PASS);
         setUpPassAction(passState);
     }
@@ -38,11 +38,11 @@ public class SplashActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_main);
                 break;
             case OverUtils.PASS_FLASH_ACTIVITY:
-                Intent loginIntent = new Intent(SplashActivity.this, LoginActivity.class);
+                Intent loginIntent = new Intent(FlashActivity.this, LoginActivity.class);
                 goToActivity(loginIntent);
                 break;
             case OverUtils.PASS_LOGIN_ACTIVITY:
-                Intent homeIntent = new Intent(SplashActivity.this, HomeActivity.class);
+                Intent homeIntent = new Intent(FlashActivity.this, HomeActivity.class);
                 goToActivity(homeIntent);
                 break;
             default:
@@ -53,11 +53,12 @@ public class SplashActivity extends AppCompatActivity {
     private void goToActivity(Intent intent) {
         ProgressBar progressCircular;
         Timer timer = new Timer();
-        setContentView(R.layout.activity_splash);
+        // cài đặt view
+        setContentView(R.layout.activity_flash);
         progressCircular = findViewById(R.id.progress_circular);
         progressCircular.setIndeterminateDrawable(new Wave());
 
-        UserDao.getInstance().getUserByUserName(OverUtils.getUserLogin(SplashActivity.this).getUsername(), new IAfterGetAllObject() {
+        UserDao.getInstance().getUserByUserName(OverUtils.getUserLogin(FlashActivity.this).getUsername(), new IAfterGetAllObject() {
             @Override
             public void iAfterGetAllObject(Object obj) {
                 if(obj != null) {
@@ -74,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onError(DatabaseError error) {
-                OverUtils.makeToast(SplashActivity.this, OverUtils.ERROR_MESSAGE);
+                OverUtils.makeToast(FlashActivity.this, ERROR_MESSAGE);
             }
         });
 
@@ -84,10 +85,10 @@ public class SplashActivity extends AppCompatActivity {
 
 
     public void btnStart(View view) {
-        SharedPreferences.Editor editor = OverUtils.getSPInstance(SplashActivity.this, OverUtils.PASS_FILE).edit();
+        SharedPreferences.Editor editor = OverUtils.getSPInstance(FlashActivity.this, OverUtils.PASS_FILE).edit();
         editor.putString("pass", OverUtils.PASS_FLASH_ACTIVITY);
         editor.apply();
-        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+        startActivity(new Intent(FlashActivity.this, LoginActivity.class));
         finish();
     }
 }
